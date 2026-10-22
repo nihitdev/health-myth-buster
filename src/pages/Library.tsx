@@ -5,12 +5,16 @@ import { pendingMyths } from "../data/pending";
 import { SAFETY } from "../engine";
 import ResultCard from "../components/ResultCard";
 export default function Library() {
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState(
+    () => new URLSearchParams(window.location.search).get("search") || "",
+  );
   const [category, setCategory] = useState("All categories");
   const [verdict, setVerdict] = useState("All verdicts");
   const filtered = myths.filter(
     (m) =>
-      (m.claim + " " + m.explanation).toLowerCase().includes(q.toLowerCase()) &&
+      (m.claim + " " + m.alternates.join(" ") + " " + m.explanation)
+        .toLowerCase()
+        .includes(q.toLowerCase()) &&
       (category === "All categories" || m.category === category) &&
       (verdict === "All verdicts" || m.verdict === verdict),
   );

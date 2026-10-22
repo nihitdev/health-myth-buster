@@ -33,6 +33,11 @@ export default function Checker() {
         </div>
         <span className="live-dot">Ready to check</span>
       </div>
+      <p className="checker-coverage">
+        {myths.length} reviewed claims ·{" "}
+        {new Set(myths.map((m) => m.category)).size} health categories ·
+        everyday wording welcome
+      </p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -77,6 +82,9 @@ export default function Checker() {
         {[
           myths[0].claim,
           myths[5].claim,
+          "Vaccines cause autism.",
+          "HIV spreads through hugging.",
+          "Boiling water removes toxic chemicals.",
           "Turmeric water cures every illness.",
         ].map((c) => (
           <button

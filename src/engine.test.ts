@@ -28,13 +28,11 @@ describe("conservative abstention", () => {
     "   ",
     "Drinking water is important",
     "Hot water cures cancer",
-    "Antibiotics do not cure colds",
     "Antibiotics never cure flu",
     "Antibiotics cure colds and flu",
     "Antibiotics cure cold sores",
     "Antibiotics cure colds but cause side effects",
     "Maybe antibiotics cure colds",
-    "Antibiotics cure colds?",
     "Antibiotics cure severe dengue",
     "My symptoms are a fever",
     "Antibiotics are not without side effects",
@@ -58,9 +56,11 @@ describe("conservative abstention", () => {
   });
 });
 describe("database integrity", () => {
-  it("50 editorial slots with unique IDs", () => {
-    expect(myths.length + pendingMyths.length).toBe(50);
-    expect(new Set([...myths, ...pendingMyths].map((m) => m.id)).size).toBe(50);
+  it("at least 50 editorial slots with unique IDs", () => {
+    expect(myths.length + pendingMyths.length).toBeGreaterThanOrEqual(50);
+    expect(new Set([...myths, ...pendingMyths].map((m) => m.id)).size).toBe(
+      myths.length + pendingMyths.length,
+    );
   });
   for (const m of myths)
     it(`${m.id} has complete evidence`, () => {
@@ -109,5 +109,99 @@ describe("evaluation utilities", () => {
   it("quotes CSV and guards formula injection", () => {
     expect(csv([r])).toContain("\"'=HYPERLINK");
     expect(csv([r])).toContain('"two, words\nnew line"');
+  });
+});
+describe("expanded natural-language understanding", () => {
+  const cases: [string, string][] = [
+    ["Antibiotics cures a common cold", "FALSE"],
+    ["Do antibiotics work for the flu?", "FALSE"],
+    ["Can antibiotics cure a cold?", "FALSE"],
+    ["Is it true that antibiotics cure common colds?", "FALSE"],
+    ["My friend says antibiotics cure the common cold", "FALSE"],
+    ["I heard that vaccines cause autism", "FALSE"],
+    ["Does vaccination cause autism?", "FALSE"],
+    ["Can mosquitos transmit HIV?", "FALSE"],
+    ["Antibiotics don't work against viruses", "TRUE"],
+    ["Antibiotics don't cure colds", "TRUE"],
+    ["Antibiotics cannot treat the flu", "TRUE"],
+    ["Vaccines do not cause autism", "TRUE"],
+    ["Is it true that vaccines do not cause autism?", "TRUE"],
+    ["HIV does not spread through hugging", "TRUE"],
+    ["Antibiotics are effective against the common cold", "FALSE"],
+    ["A cold can be treated with antibiotics", "FALSE"],
+    ["Autism is caused by vaccination", "FALSE"],
+    ["Exercise improves mental health", "TRUE"],
+    ["Smoking causes lung cancer", "TRUE"],
+    ["Gutkha is harmless", "FALSE"],
+    ["Antibiotics cure all diseases", "FALSE"],
+    ["Every bacterial infection needs antibiotics", "FALSE"],
+    ["Boiling water removes toxic chemicals", "FALSE"],
+  ];
+  for (const [claim, verdict] of cases)
+    it(claim, () => {
+      expect(checkClaim(claim).verdict).toBe(verdict);
+      expect(checkClaim(claim).myth?.sources.length).toBeGreaterThanOrEqual(2);
+    });
+  for (const m of myths)
+    for (const v of m.reviewedVariants || [])
+      for (const claim of [v.claim, ...v.alternates])
+        it(`reviewed polarity: ${claim}`, () => {
+          const r = checkClaim(claim);
+          expect(r.verdict).toBe(v.verdict);
+          expect(r.matchedClaim).toBe(v.claim);
+          expect(r.explanation.endsWith(SAFETY)).toBe(true);
+        });
+});
+describe("scope and semantic regression guards", () => {
+  const claims = [
+    "The common cold cures antibiotics",
+    "Viruses kill antibiotics",
+    "Autism causes vaccines",
+    "All antibiotics do not cure the common cold",
+    "Vaccines do not never cause autism",
+    "Antibiotics cure the common cold during pregnancy",
+    "Antibiotics cure common colds in animals",
+    "Boiling water cures cancer",
+    "Warm drinking water kills germs in the body",
+    "Antibiotics cure a cold instantly",
+    "Vaccines cure autism",
+    "Smoking prevents lung cancer",
+    "Antibiotics? cure colds",
+    "How do antibiotics cure a cold?",
+    "Is it true that antibiotics cure colds and cancer?",
+    "Should I take antibiotics for a cold?",
+    "I was bitten by a dog and have rabies",
+    "Cold sores can be cured by antibiotics",
+    "No evidence that vaccines do not cause autism",
+    "Dengue is not a viral infection",
+  ];
+  for (const claim of claims)
+    it(`abstains: ${claim}`, () =>
+      expect(checkClaim(claim).verdict).toBe("UNVERIFIED"));
+  for (const m of myths)
+    it(`does not swallow an appended medical assertion: ${m.id}`, () =>
+      expect(checkClaim(m.claim + " and cure cancer").verdict).toBe(
+        "UNVERIFIED",
+      ));
+  it("clarifies broad illness without guessing", () => {
+    const r = checkClaim("Antibiotics cure common illness");
+    expect(r.verdict).toBe("UNVERIFIED");
+    expect(r.explanation).toContain("too broad");
+    expect(r.related?.length).toBeGreaterThan(0);
+    expect(r.suggestion).toContain("do not verify");
+    expect(r.myth).toBeUndefined();
+  });
+  it("does not suggest unrelated evidence for a notebook claim", () =>
+    expect(checkClaim("Blue notebooks prevent headaches").related).toEqual([]));
+  it("normalization preserves negation and is stable", () => {
+    for (const claim of [
+      "Antibiotics do not work for viruses",
+      "Vaccines don't cause autism",
+      "HIV spreads through mosquito bites",
+    ]) {
+      const n = normalize(claim);
+      expect(normalize(n)).toBe(n);
+    }
+    expect(normalize("Vaccines don't cause autism")).toContain("not");
   });
 });

@@ -28,8 +28,10 @@ export default function About() {
             synonyms in the reviewed database.
           </li>
           <li>
-            We reject negation, questions, compound claims, overlapping matches
-            and wording coverage below 85%.
+            We recognize common word forms, spelling variants, synonyms and
+            clear questions. Explicitly reviewed negated wording has its own
+            verdict. Unreviewed negation, compound claims and overlapping
+            matches stay UNVERIFIED.
           </li>
           <li>
             A reliable match shows TRUE or FALSE. Everything else shows
@@ -53,17 +55,19 @@ export default function About() {
         Our target is 50 carefully reviewed claims. Currently {myths.length}{" "}
         have had their source content reviewed during development;{" "}
         {pendingMyths.length} remain pending. This is not a clinical or
-        independent expert review. Sources are WHO, CDC and NHS; citations are
-        references, not endorsements. Review dates record our evidence check,
-        not source publication dates.
+        independent expert review. Sources include WHO, CDC, NHS, UNAIDS and
+        ANACS, MoHFW (Government of India) and NCI; citations are references,
+        not endorsements. Review dates record our evidence check, not source
+        publication dates.
       </p>
       <h2>Honest limitations</h2>
       <p>
         This English-language prototype has limited coverage. Rules can miss
         valid paraphrases and can still misunderstand a sentence. A match score
-        measures wording overlap, not medical certainty. Negated versions are
-        deliberately left UNVERIFIED rather than having their verdict
-        automatically reversed.
+        measures wording overlap, not medical certainty. Only explicitly
+        reviewed negated phrasings receive a verdict; other negation stays
+        UNVERIFIED. Broad wording gets clarification and links to related
+        evidence, not a guessed answer.
       </p>
       <p>
         It is not a medical professional or autonomous AI fact checker. It

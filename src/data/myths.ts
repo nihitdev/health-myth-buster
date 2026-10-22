@@ -1,3 +1,4 @@
+import { expandedMyths } from "./expanded.ts";
 export type Verdict = "TRUE" | "FALSE" | "UNVERIFIED";
 export interface Source {
   organization: string;
@@ -17,6 +18,11 @@ export interface Myth {
   reviewStatus: "evidence-reviewed";
   lastReviewed: string;
   category: string;
+  reviewedVariants?: {
+    claim: string;
+    alternates: string[];
+    verdict: Exclude<Verdict, "UNVERIFIED">;
+  }[];
 }
 const cdcAnt: Source = {
   organization: "CDC",
@@ -226,4 +232,68 @@ export const myths: Myth[] = [
     "Everyday health",
     [whoP, cdcP],
   ),
+  ...expandedMyths,
 ];
+
+// These opposite-polarity statements were explicitly checked against each entry's sources.
+const variants: Record<string, NonNullable<Myth["reviewedVariants"]>> = {
+  "ant-cold": [
+    {
+      claim: "Antibiotics do not cure the common cold.",
+      alternates: [
+        "Antibiotics don't cure colds",
+        "Antibiotics cannot treat a cold",
+      ],
+      verdict: "TRUE",
+    },
+  ],
+  "ant-flu": [
+    {
+      claim: "Antibiotics do not treat influenza.",
+      alternates: ["Antibiotics don't work for the flu"],
+      verdict: "TRUE",
+    },
+  ],
+  "ant-virus": [
+    {
+      claim: "Antibiotics do not treat viral infections.",
+      alternates: [
+        "Antibiotics don't kill viruses",
+        "Antibiotics cannot treat viruses",
+      ],
+      verdict: "TRUE",
+    },
+  ],
+  "hiv-hug": [
+    {
+      claim: "HIV does not spread through hugging.",
+      alternates: ["You cannot catch HIV from a hug"],
+      verdict: "TRUE",
+    },
+  ],
+  "hiv-mosquito": [
+    {
+      claim: "Mosquitoes do not transmit HIV.",
+      alternates: ["HIV does not spread through mosquito bites"],
+      verdict: "TRUE",
+    },
+  ],
+  "vaccine-autism": [
+    {
+      claim: "Vaccines do not cause autism.",
+      alternates: [
+        "Vaccines don't cause autism",
+        "The MMR vaccine does not cause autism",
+      ],
+      verdict: "TRUE",
+    },
+  ],
+  "smokeless-safe": [
+    {
+      claim: "Smokeless tobacco is not harmless.",
+      alternates: ["Chewing tobacco is not safe"],
+      verdict: "TRUE",
+    },
+  ],
+};
+for (const myth of myths) myth.reviewedVariants = variants[myth.id];

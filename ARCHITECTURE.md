@@ -4,13 +4,17 @@ React + strict TypeScript + Vite; Tailwind CSS Vite plugin with reusable CSS des
 
 ## Structure
 
-`src/App.tsx` is the layout, theme and pathname route switch. `src/pages` contains Home, Library, About, Testing and Presentation. `src/components` shares Checker, ResultCard, Sources and How. `src/data/myths.ts` is the reviewed typed dataset. `pending.ts` is isolated from matching. `engine.ts` is pure; `storage.ts` handles test serialization and browser downloads.
+`src/App.tsx` is the layout, theme and pathname route switch. `src/pages` contains Home, Library, About, Testing and Presentation. `src/components` shares Checker, ResultCard, Sources and How. `src/data/myths.ts` is the reviewed typed dataset. `pending.ts` is isolated from matching. `language.ts` supplies controlled phrasing rules; `expanded.ts` holds the added evidence topics; `engine.ts` is pure; `storage.ts` handles test serialization and browser downloads.
 
 ## Claim flow
 
-Input → length validation → normalization → caution guards → all required concept groups → minimum 85% wording coverage → unique candidate → evidence-backed result. Zero or multiple candidates → UNVERIFIED.
+Input → length/personal-request checks → case, punctuation and controlled language normalization → one-proposition guards → exact reviewed wording patterns → required concept groups → coverage and extra-content checks → unique candidate → evidence-backed result. Zero or multiple candidates → UNVERIFIED, with clarification and separately labeled related evidence where possible.
 
-Whole phrase matches use padded word boundaries, not arbitrary substrings. A small explicit spelling map normalizes antibiotic variants and influenza. Required groups represent synonyms with OR inside a group and AND between groups. A word-coverage rule rejects unrelated additional concepts. Negation, absolutes, uncertain words, questions, personal requests and conjunctions cause abstention; no automatic reversal. Rules are explainable but are not semantic language understanding. 85% is an engineering threshold, not a calibrated probability. Some malformed sentences may still match; users should read the displayed canonical claim.
+`language.ts` normalizes word forms (cures/cure, causes/cause), a bounded spelling dictionary, phrases such as “works for”, and leading wrappers such as “I heard that”. It preserves negation and quantifiers. Clear questions about one proposition are allowed; open-ended medical questions are not. No fuzzy edit-distance guess or embedding model is used.
+
+Whole phrase matches use word boundaries. Required groups are OR within each group and AND between groups. Precompiled fingerprints preserve content-word order and polarity. Explicitly reviewed negated variants carry their own verdict and canonical statement; nothing is inverted automatically. For other wording, all groups must match, the numerical threshold is 85%, and any unsupported content word vetoes the match even if the threshold passes. Direction checks prevent reversal of medicine/illness and cause/effect in selected patterns.
+
+Exact reviewed patterns allow carefully scoped quantified claims such as “Antibiotics cure every illness” without allowing arbitrary “all” or “always” wording. Compound assertions are blocked unless the whole phrase is explicitly reviewed (for example a comparison of HIV and AIDS). Related suggestions are navigation to reviewed facts, not evidence that verifies the unverified input. Broad “common illness” wording gets a specific request to name the illness. Rules remain limited, not semantic language understanding or medical certainty. Some malformed sentences may still match; read the canonical statement and sources.
 
 ## UI and accessibility
 

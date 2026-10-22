@@ -275,7 +275,12 @@ export default function Testing() {
         </div>
       </div>
       {records.length > 0 && (
-        <div className="table-wrap" tabIndex={0} role="region" aria-label="Saved evaluations, scroll horizontally for all columns">
+        <div
+          className="table-wrap"
+          tabIndex={0}
+          role="region"
+          aria-label="Saved evaluations, scroll horizontally for all columns"
+        >
           <table>
             <caption>Genuine evaluations saved on this device</caption>
             <thead>

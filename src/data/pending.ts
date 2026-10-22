@@ -1,3 +1,4 @@
+import { myths } from "./myths.ts";
 // Editorial candidates only. No verdict, review date or invented citations.
 const candidates = [
   "Hot water cures COVID-19",
@@ -39,10 +40,17 @@ const candidates = [
   "Smoking only harms the smoker",
   "Smokeless tobacco is harmless",
 ];
-export const pendingMyths = candidates.map((claim, i) => ({
-  id: `pending-${i + 1}`,
-  claim,
-  reviewStatus: "pending-review" as const,
-  reason:
-    "Two claim-specific official sources and matching rules await review.",
-}));
+const published = new Set(
+  myths
+    .flatMap((m) => [m.claim, ...m.alternates])
+    .map((claim) => claim.toLowerCase().replace(/[.]/g, "")),
+);
+export const pendingMyths = candidates
+  .map((claim, i) => ({
+    id: `pending-${i + 1}`,
+    claim,
+    reviewStatus: "pending-review" as const,
+    reason:
+      "Two claim-specific official sources and matching rules await review.",
+  }))
+  .filter((m) => !published.has(m.claim.toLowerCase().replace(/[.]/g, "")));

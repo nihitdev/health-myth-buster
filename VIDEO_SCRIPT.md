@@ -16,7 +16,7 @@ Use presentation screens 2 and 3, then open the library.
 
 ## [Team member 3] — Method and responsible technology (1:10–1:45)
 
-“This prototype uses transparent rules, not an AI API or machine learning. It cleans text, looks for required keywords and synonyms, and checks whether one reviewed claim matches safely. It avoids guessing on negation or unclear wording. We currently have 12 evidence-reviewed entries with two official sources each, and 38 candidates awaiting review. The tool cannot diagnose disease or prescribe treatment. My actual contribution was [real contribution].”
+“This prototype uses transparent rules, not an AI API or machine learning. It cleans text, looks for required keywords and synonyms, and checks whether one reviewed claim matches safely. It avoids guessing on negation or unclear wording. We currently have 36 evidence-reviewed entries with two official sources each, and 31 candidates awaiting review. The tool cannot diagnose disease or prescribe treatment. My actual contribution was [real contribution].”
 
 Show ‘Why this matched’ and methodology.
 

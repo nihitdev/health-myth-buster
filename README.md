@@ -6,11 +6,11 @@ Enter one English health claim and receive TRUE, FALSE or an honest UNVERIFIED r
 
 ## Honest scope
 
-12 evidence-reviewed database entries and 38 separate pending candidates, targeting 50. Editorial source review during development is not independent clinical review. Transparent deterministic rules; **no machine learning, LLM, backend, API keys or paid services**. Unknown claims are never automatically false. This tool does not diagnose or prescribe.
+36 evidence-reviewed database entries and 31 separate pending candidates, targeting 50. Editorial source review during development is not independent clinical review. Transparent deterministic rules; **no machine learning, LLM, backend, API keys or paid services**. Unknown claims are never automatically false. This tool does not diagnose or prescribe.
 
 ## Run
 
-Use Node 22.12+ (development verified with Node 26) and npm.
+Use Node 22.18+ (development verified with Node 26) and npm.
 
 ```sh
 npm ci
@@ -23,7 +23,21 @@ npm run test:e2e
 npm run audit:sources
 ```
 
-For browser tests, first run `npx playwright install chromium`. The browser suite builds the production bundle and starts the Vite preview server itself. `audit:sources` regenerates the audit from stored review notes; it does not verify source content anew.
+For browser tests, first run `npx playwright install chromium`. The browser suite builds the production bundle and starts its own Vite preview server on port 5174, leaving the development server on port 5173 available. `audit:sources` regenerates the audit from stored review notes; it does not verify source content anew.
+
+## Everyday wording
+
+The checker recognizes controlled paraphrases, common word forms, simple questions and explicitly reviewed negative statements. For example:
+
+| Input                            | Result                                              |
+| -------------------------------- | --------------------------------------------------- |
+| Do antibiotics work for the flu? | FALSE                                               |
+| Vaccines do not cause autism     | TRUE                                                |
+| Can mosquitoes spread HIV?       | FALSE                                               |
+| Antibiotics cure all diseases    | FALSE                                               |
+| Antibiotics cure common illness  | UNVERIFIED, with clarification and related evidence |
+
+Related evidence does not verify an unknown original claim. This is a bounded rule-based tool, not general medical reasoning. Negation is never automatically inverted.
 
 ## Routes and features
 

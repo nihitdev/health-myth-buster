@@ -20,7 +20,7 @@ export default function ResultCard({ result }: { result: Result }) {
           {result.verdict}
         </span>
       </div>
-      {result.myth && <h3>{result.myth.claim}</h3>}
+      {result.myth && <h3>{result.matchedClaim || result.myth.claim}</h3>}
       <p>{result.explanation.slice(0, -SAFETY.length)}</p>
       {result.myth ? (
         <>
@@ -39,8 +39,30 @@ export default function ResultCard({ result }: { result: Result }) {
           Explore WHO health topics ↗
         </a>
       )}
+      {result.suggestion && (
+        <p className="clarification">{result.suggestion}</p>
+      )}
+      {!!result.related?.length && (
+        <div className="related-claims">
+          <p>
+            <strong>Related reviewed claims</strong>
+          </p>
+          <ul>
+            {result.related.map((m) => (
+              <li key={m.id}>
+                <a href={`/library?search=${encodeURIComponent(m.claim)}`}>
+                  {m.claim}
+                  <span aria-hidden="true"> ↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <details>
-        <summary>Why this matched</summary>
+        <summary>
+          {result.myth ? "Why this matched" : "Why no verdict?"}
+        </summary>
         <p>{result.reason}</p>
       </details>
       <p className="doctor">

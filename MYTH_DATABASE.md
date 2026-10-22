@@ -1,8 +1,8 @@
 # Myth database
 
-Target: 50 claims. Published now: **12 evidence-reviewed**, with **38 pending-review** candidates. Do not call this a 50-verified-myth database.
+Target: 50 claims. Published now: **36 evidence-reviewed**, with **31 pending-review** candidates. Do not call this a 50-verified-myth database.
 
-Each reviewed `Myth` includes ID, canonical claim, alternate phrasings, required groups of whole-word keywords/synonyms, negation sensitivity, TRUE/FALSE verdict, explanation, category, two official sources (organization/title/exact URL/evidence section), review status and actual content-review date. `required` is AND across groups and OR within a group. Shared conservative guards in engine.ts are the negation-sensitive patterns for every entry. A separate data type ensures pending candidates have no verdict, citations or review date.
+Each reviewed `Myth` includes ID, canonical claim, alternate phrasings, required groups of whole-word keywords/synonyms, negation sensitivity, TRUE/FALSE verdict, explanation, category, two official sources (organization/title/exact URL/evidence section), review status and actual content-review date. `required` is AND across groups and OR within a group. Optional `reviewedVariants` contain independently checked opposite-polarity statements with their own claim, alternate phrasings and verdict. Shared guards in engine.ts abstain on all other negation and qualifiers. Word-form and bounded synonym rules live in language.ts. A separate data type ensures pending candidates have no verdict, citations or review date.
 
 ## Promotion procedure
 
@@ -14,3 +14,7 @@ Each reviewed `Myth` includes ID, canonical claim, alternate phrasings, required
 6. Move the candidate to the reviewed array, remove its pending entry, regenerate SOURCE_AUDIT.md, run all checks, and have a teacher/clinician independently review if possible.
 
 The current content was reviewed during development, not by an independent medical panel. Official guidance can change. No review expiry is automated; the team should recheck sources before each public submission and remove entries if evidence becomes uncertain. The NHS antibiotic page has an older publisher review date, disclosed in the audit. Indian-specific candidate claims remain pending rather than being filled with insufficient evidence.
+
+## Coverage expansion
+
+The initial 12 entries have grown to 36, across medicines, infections, everyday health, tobacco, vaccines, and water/hygiene. Seven original research candidates were promoted after reading two relevant sources each. Additional newly reviewed claims extend the original candidate list, so reviewed entries plus pending candidates may exceed 50 editorial slots. The target remains 50 **reviewed** claims; pending candidates never count toward it. Negated variants are additional supported phrasings, not extra database entries for inflating that count.

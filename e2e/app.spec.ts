@@ -35,16 +35,16 @@ test("claim journey, caution, sources and accessible themes", async ({
     .getByLabel("Enter a health claim")
     .fill("Antibiotics do not cure colds");
   await page.getByLabel("Enter a health claim").press("Enter");
-  await expect(page.getByLabel("Claim result")).toContainText("UNVERIFIED");
+  await expect(page.getByLabel("Claim result")).toContainText("TRUE");
   expect(errors).toEqual([]);
 });
 test("library, local evaluation, export, baseline rerun and judge routes", async ({
   page,
 }) => {
   await page.goto("/library");
-  await expect(page.getByRole("status")).toContainText("12 of 12");
+  await expect(page.getByRole("status")).toContainText("36 of 36");
   await page.getByLabel("Search myth library").fill("common cold");
-  await expect(page.getByRole("status")).toContainText("1 of 12");
+  await expect(page.getByRole("status")).toContainText("1 of 36");
   await page.goto("/testing");
   await expect(page.getByText("No results yet").first()).toBeVisible();
   await page
@@ -88,4 +88,35 @@ test("library, local evaluation, export, baseline rerun and judge routes", async
     const a = await new AxeBuilder({ page }).analyze();
     expect(a.violations).toEqual([]);
   }
+});
+test("everyday questions, reviewed negation and useful clarification", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const claim = page.getByLabel("Enter a health claim");
+  await claim.fill("Do antibiotics work for the flu?");
+  await claim.press("Enter");
+  await expect(page.getByLabel("Claim result")).toContainText("FALSE");
+  await claim.fill("Vaccines do not cause autism");
+  await claim.press("Enter");
+  await expect(page.getByLabel("Claim result").getByRole("heading")).toHaveText(
+    "Vaccines do not cause autism.",
+  );
+  await expect(page.getByLabel("Claim result")).toContainText("TRUE");
+  await claim.fill("Antibiotics cure common illness");
+  await claim.press("Enter");
+  await expect(page.getByLabel("Claim result")).toContainText("UNVERIFIED");
+  await expect(page.getByLabel("Claim result")).toContainText("too broad");
+  await expect(page.getByLabel("Claim result")).toContainText(
+    "do not verify your original statement",
+  );
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page
+    .getByLabel("Claim result")
+    .getByRole("link", { name: /Antibiotics cure the common cold/ })
+    .click();
+  await expect(page.getByLabel("Search myth library")).toHaveValue(
+    "Antibiotics cure the common cold.",
+  );
+  await expect(page.getByRole("status")).toContainText("1 of 36");
 });
