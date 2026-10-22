@@ -73,6 +73,32 @@ export default function App() {
             {dark ? <Sun size={19} /> : <Moon size={19} />}
           </button>
         </div>
+        <div className="top-credits-wrap">
+          <div className="top-credits">
+            <div className="team-credit">
+              <span className="credit-label">Made by</span>
+              <ul aria-label="Project team">
+                <li>
+                  <strong>Nihit Sunhare</strong>
+                </li>
+                <li>Rudransh Sahu</li>
+                <li>Priyushi Agrawal</li>
+                <li>Ahika Porwal</li>
+              </ul>
+            </div>
+            <a
+              className="github-link github-box"
+              href="https://github.com/nihitdev/health-myth-buster"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github size={19} aria-hidden="true" />
+              View project on GitHub
+              <ArrowUpRight size={16} aria-hidden="true" />
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
       </header>
       <main id="main">
         {path === "/" ? (
