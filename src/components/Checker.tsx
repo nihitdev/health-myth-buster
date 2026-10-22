@@ -1,14 +1,9 @@
 import { useState } from "react";
-import {
-  ScanLine,
-  ArrowRight,
-  ArrowUpRight,
-  LockKeyhole,
-  RotateCcw,
-} from "lucide-react";
+import { ScanLine, ArrowRight, LockKeyhole, RotateCcw } from "lucide-react";
 import { myths } from "../data/myths";
 import { checkClaim, MAX_LENGTH, type Result } from "../engine";
 import ResultCard from "./ResultCard";
+import ClaimExamples from "./ClaimExamples";
 export default function Checker() {
   const [claim, setClaim] = useState("");
   const [result, setResult] = useState<Result>();
@@ -77,29 +72,13 @@ export default function Checker() {
           Check Claim <ArrowRight size={19} />
         </button>
       </form>
-      <div className="examples">
-        <span>TRY AN EXAMPLE</span>
-        {[
-          myths[0].claim,
-          myths[5].claim,
-          "Vaccines cause autism.",
-          "HIV spreads through hugging.",
-          "Boiling water removes toxic chemicals.",
-          "Turmeric water cures every illness.",
-        ].map((c) => (
-          <button
-            key={c}
-            onClick={() => {
-              setClaim(c);
-              setResult(checkClaim(c));
-              setError("");
-            }}
-          >
-            {c}
-            <ArrowUpRight size={13} />
-          </button>
-        ))}
-      </div>
+      <ClaimExamples
+        onSelect={(claim) => {
+          setClaim(claim);
+          setResult(checkClaim(claim));
+          setError("");
+        }}
+      />
       <div role="status" aria-live="polite" aria-atomic="true">
         {result ? (
           <>

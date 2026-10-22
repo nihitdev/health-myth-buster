@@ -14,10 +14,10 @@ Development check performed 2026-10-22. These are automated engineering checks, 
 | Accessibility automation        | Pass       | Axe reports zero detected violations on checked route states; home checked in light and dark themes                                                                          |
 | Browser runtime                 | Pass       | No page errors during checker flow                                                                                                                                           |
 | Backend/API                     | Not needed | Entire application runs locally; no API keys or server data boundary                                                                                                         |
-| Production build                | Pass       | Strict TypeScript and Vite build; about 86.7 kB gzipped JavaScript and 5.0 kB gzipped CSS                                                                                    |
+| Production build                | Pass       | Strict TypeScript and Vite build; about 87.3 kB gzipped JavaScript and 5.2 kB gzipped CSS                                                                                    |
 | Lint and dependency audit       | Pass       | ESLint clean; npm audit reports zero known vulnerabilities                                                                                                                   |
 
-The browser suite runs against the production bundle using `npm run build && npm run preview`. Six Playwright tests pass across desktop and mobile Chromium emulation. These use isolated test storage and do not prefill the app with fake participant records. Earlier checks identified contrast, library heading order and keyboard scrolling issues; all were corrected. The expanded checker additionally verifies everyday questions, explicitly reviewed negation, broad-claim clarification and navigation to related sources.
+The browser suite runs against the production bundle using `npm run build && npm run preview`. Eight Playwright tests pass across desktop and mobile Chromium emulation. These use isolated test storage and do not prefill the app with fake participant records. Earlier checks identified contrast, library heading order and keyboard scrolling issues; all were corrected. The expanded checker additionally verifies everyday questions, explicitly reviewed negation, broad-claim clarification and navigation to related sources.
 
 ## Still manual
 
@@ -26,3 +26,5 @@ The browser suite runs against the production bundle using `npm run build && npm
 - Physical Android/iOS, Safari, screen readers, browser storage/download restrictions and zoom checks.
 - Import the repository into Vercel, confirm a successful public deployment, then test signed out on another device. No public URL has been claimed.
 - Fill actual team contributions/results/URL in presentation documents; compare proposed PPT answers with the real official template.
+
+The example-card flow is verified on desktop and mobile: clicking a prompt runs the real engine, more examples can be revealed, and Testing Lab previews leave local evaluation storage empty. Switching to a personal claim clears practice mode and focuses the input.

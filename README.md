@@ -41,10 +41,10 @@ Related evidence does not verify an unknown original claim. This is a bounded ru
 
 ## Routes and features
 
-- `/`: keyboard-friendly checker, examples, clear verdicts and match transparency.
+- `/`: keyboard-friendly checker, one-click topic examples, clear verdicts and match transparency.
 - `/library`: searchable evidence library, category/verdict filters and separate pending list.
 - `/about`: methodology, limitations and privacy.
-- `/testing`: empty-by-default local evaluations, expected/actual answers, manual correctness, feedback, CSV/JSON export and before/after reruns.
+- `/testing`: empty-by-default local evaluations, expected/actual answers, manual correctness, feedback, CSV/JSON export and before/after reruns. One-click examples are practice previews and cannot be saved as genuine evaluations.
 - `/presentation` (also `/demo`): three judge-friendly screens using the actual engine.
 
 Light/dark themes persist on this device. Reduced motion is respected. Fonts are system-local, and claims never leave the browser. Reading source links requires internet. No personal details should be entered into test records.

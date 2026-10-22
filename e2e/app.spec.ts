@@ -120,3 +120,41 @@ test("everyday questions, reviewed negation and useful clarification", async ({
   );
   await expect(page.getByRole("status")).toContainText("1 of 36");
 });
+test("one-click examples work and practice previews do not create evaluations", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: /Do antibiotics work for the flu/ })
+    .click();
+  await expect(page.getByLabel("Enter a health claim")).toHaveValue(
+    "Do antibiotics work for the flu?",
+  );
+  await expect(page.getByLabel("Claim result")).toContainText("FALSE");
+  await page.getByRole("button", { name: "Show 4 more examples" }).click();
+  await page
+    .getByRole("button", { name: /Blue notebooks prevent headaches/ })
+    .click();
+  await expect(page.getByLabel("Claim result")).toContainText("UNVERIFIED");
+  await page.goto("/testing");
+  await page
+    .getByRole("button", { name: /Vaccines do not cause autism/ })
+    .click();
+  await expect(page.getByLabel("Claim in your own words")).toHaveValue(
+    "Vaccines do not cause autism.",
+  );
+  await expect(page.getByLabel("Claim result")).toContainText("TRUE");
+  await expect(
+    page.getByText("Example preview only. No evaluation has been recorded."),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Save evaluation" }),
+  ).toHaveCount(0);
+  expect(
+    await page.evaluate(() => localStorage.getItem("hmb-tests-v1")),
+  ).toBeNull();
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.getByRole("button", { name: "Write my own claim" }).click();
+  await expect(page.getByLabel("Claim in your own words")).toHaveValue("");
+  await expect(page.getByLabel("Claim in your own words")).toBeFocused();
+});

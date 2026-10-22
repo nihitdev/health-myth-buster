@@ -22,3 +22,7 @@ Load each saved baseline claim using **Load next baseline claim**, choose **Afte
 ## Manual device checks
 
 Check Android/iOS and desktop, keyboard-only navigation, screen reader announcement, light/dark themes, 200% zoom and reduced motion. Read both sources for every published entry. Test copy/paste, empty input, the character limit, source tabs and downloads. Test direct routes on the deployed site in a signed-out browser on another device. Confirm the real public URL only after successful deployment. These checks are pending until people perform them.
+
+## Practice examples
+
+The checker and Testing Lab offer one-click examples across health topics, plus broad and unknown claims. In the Testing Lab these are explicitly labeled practice previews. They do not create saved records, affect accuracy, or offer a Save evaluation action. Choose **Write my own claim** or edit the claim to begin a real evaluation; independently check the expected answer before recording it. Use these previews to learn the interface, then collect participants’ original wording for the evaluation.

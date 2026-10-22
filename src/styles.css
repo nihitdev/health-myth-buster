@@ -1282,3 +1282,71 @@ a:hover {
 .clarification {
   color: var(--muted);
 }
+.claim-examples {
+  margin-top: 24px;
+}
+.examples-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.examples-help {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.example-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.example-card {
+  padding: 13px;
+  background: var(--bg);
+  text-align: left;
+  justify-content: space-between;
+  align-items: start;
+  min-height: 96px;
+}
+.example-card:hover {
+  border-color: var(--teal);
+}
+.example-card > span {
+  min-width: 0;
+}
+.example-card > svg {
+  color: var(--teal);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.example-topic {
+  display: block;
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 650;
+  margin-bottom: 5px;
+}
+.example-claim {
+  display: block;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.practice-note {
+  margin: 16px 0;
+  padding: 16px;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.practice-note p {
+  margin: 8px 0 12px;
+}
+@media (max-width: 700px) {
+  .example-grid {
+    grid-template-columns: 1fr;
+  }
+  .example-card {
+    min-height: 80px;
+  }
+}

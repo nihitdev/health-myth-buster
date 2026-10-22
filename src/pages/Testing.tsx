@@ -10,6 +10,7 @@ import type { Verdict } from "../data/myths";
 import { checkClaim, MAX_LENGTH, type Result } from "../engine";
 import { readRecords, summary, csv, download, STORAGE_KEY } from "../storage";
 import ResultCard from "../components/ResultCard";
+import ClaimExamples from "../components/ClaimExamples";
 export default function Testing() {
   const [records, setRecords] = useState(readRecords);
   const [claim, setClaim] = useState("");
@@ -19,9 +20,10 @@ export default function Testing() {
   const [feedback, setFeedback] = useState("");
   const [correct, setCorrect] = useState<boolean | undefined>();
   const [notice, setNotice] = useState("");
+  const [isExample, setIsExample] = useState(false);
   const stats = summary(records);
   function save() {
-    if (!result || correct === undefined) return;
+    if (!result || correct === undefined || isExample) return;
     const next = [
       ...records,
       {
@@ -83,6 +85,40 @@ export default function Testing() {
       <div className="lab-grid">
         <div className="panel">
           <h2>Evaluate a claim</h2>
+          <ClaimExamples
+            practice
+            onSelect={(claim) => {
+              setClaim(claim);
+              setResult(checkClaim(claim));
+              setCorrect(undefined);
+              setFeedback("");
+              setNotice(
+                "Example preview only. No evaluation has been recorded.",
+              );
+              setIsExample(true);
+            }}
+          />
+          {isExample && (
+            <div className="practice-note">
+              <strong>Practice example</strong>
+              <p>
+                This preview does not count toward your testing accuracy. Enter
+                a claim in your own words to record a genuine evaluation.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsExample(false);
+                  setClaim("");
+                  setResult(undefined);
+                  setNotice("");
+                  document.getElementById("lab-claim")?.focus();
+                }}
+              >
+                Write my own claim
+              </button>
+            </div>
+          )}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -102,6 +138,9 @@ export default function Testing() {
               onChange={(e) => {
                 setClaim(e.target.value);
                 setResult(undefined);
+                setIsExample(false);
+                setCorrect(undefined);
+                setNotice("");
               }}
               placeholder="One health claim, without personal details"
             />
@@ -135,36 +174,40 @@ export default function Testing() {
               <div role="status">
                 <ResultCard result={result} />
               </div>
-              <fieldset>
-                <legend>Was the tool correct?</legend>
-                {[true, false].map((v) => (
-                  <label className="radio" key={String(v)}>
-                    <input
-                      type="radio"
-                      name="correct"
-                      checked={correct === v}
-                      onChange={() => setCorrect(v)}
-                    />
-                    {v ? "Correct" : "Incorrect"}
+              {!isExample && (
+                <>
+                  <fieldset>
+                    <legend>Was the tool correct?</legend>
+                    {[true, false].map((v) => (
+                      <label className="radio" key={String(v)}>
+                        <input
+                          type="radio"
+                          name="correct"
+                          checked={correct === v}
+                          onChange={() => setCorrect(v)}
+                        />
+                        {v ? "Correct" : "Incorrect"}
+                      </label>
+                    ))}
+                  </fieldset>
+                  <label htmlFor="feedback">
+                    Optional feedback (no personal details)
                   </label>
-                ))}
-              </fieldset>
-              <label htmlFor="feedback">
-                Optional feedback (no personal details)
-              </label>
-              <textarea
-                id="feedback"
-                maxLength={500}
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-              />
-              <button
-                className="primary"
-                disabled={correct === undefined}
-                onClick={save}
-              >
-                Save evaluation <Plus size={17} />
-              </button>
+                  <textarea
+                    id="feedback"
+                    maxLength={500}
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
+                  />
+                  <button
+                    className="primary"
+                    disabled={correct === undefined}
+                    onClick={save}
+                  >
+                    Save evaluation <Plus size={17} />
+                  </button>
+                </>
+              )}
             </>
           )}
           <p role="status">{notice}</p>
@@ -205,6 +248,7 @@ export default function Testing() {
                 );
                 if (r) {
                   setClaim(r.claim);
+                  setIsExample(false);
                   setExpected(r.expected);
                   setPhase("after");
                   setResult(undefined);
