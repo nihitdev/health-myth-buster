@@ -76,11 +76,11 @@ export default function App() {
         <div className="top-credits-wrap">
           <div className="top-credits">
             <div className="team-credit">
-              <span className="credit-label">Made by</span>
-              <ul aria-label="Project team">
-                <li>
-                  <strong>Nihit Sunhare</strong>
-                </li>
+              <p className="developer-credit">
+                Built and developed by <strong>Nihit Sunhare</strong>
+              </p>
+              <span className="credit-label">Team members</span>
+              <ul aria-label="Team members">
                 <li>Rudransh Sahu</li>
                 <li>Priyushi Agrawal</li>
                 <li>Ahika Porwal</li>
@@ -139,11 +139,11 @@ export default function App() {
         </div>
         <div className="footer-credits">
           <div className="team-credit">
-            <span className="credit-label">Made by</span>
-            <ul aria-label="Project team">
-              <li>
-                <strong>Nihit Sunhare</strong>
-              </li>
+            <p className="developer-credit">
+              Built and developed by <strong>Nihit Sunhare</strong>
+            </p>
+            <span className="credit-label">Team members</span>
+            <ul aria-label="Team members">
               <li>Rudransh Sahu</li>
               <li>Priyushi Agrawal</li>
               <li>Ahika Porwal</li>

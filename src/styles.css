@@ -1434,3 +1434,9 @@ a:hover {
     justify-content: center;
   }
 }
+
+.developer-credit {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 14px;
+}

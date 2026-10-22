@@ -237,11 +237,13 @@ Add the real production URL only after these checks succeed.
 | [Presentation notes](PRESENTATION_NOTES.md)   | Suggested PPT content and demonstration sequence.                         |
 | [Video script](VIDEO_SCRIPT.md)               | Four speaking parts with placeholders for real contributions and results. |
 
-## Made by
+## Team
 
 <div align="center">
 
-**Nihit Sunhare** · Rudransh Sahu · Priyushi Agrawal · Ahika Porwal
+**Built and developed by Nihit Sunhare**
+
+Team members: Rudransh Sahu · Priyushi Agrawal · Ahika Porwal
 
 Built for **HCL Jigsaw 7.0**<br />
 AI Revolution & Digital Futures
