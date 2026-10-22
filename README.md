@@ -37,8 +37,12 @@ Light/dark themes persist on this device. Reduced motion is respected. Fonts are
 
 ## Deploy free on Vercel
 
-No public deployment is claimed. Import the private GitHub repository into Vercel using an account with access; select Vite, `npm run build`, output `dist`. No environment variables are needed. `vercel.json` provides SPA deep-link rewrites. Keep Vercel Authentication/Deployment Protection off for the intended public production site. Keep the repository private; the deployed website can be public.
+No public deployment is claimed. Import the public GitHub repository into Vercel; select Vite, `npm run build`, output `dist`. No environment variables are needed. `vercel.json` provides SPA deep-link rewrites. Keep Vercel Authentication/Deployment Protection off for the intended public production site. The repository is open source; the deployed website should also be publicly accessible.
 
 After deployment actually succeeds, record the real production URL. On a second device, open that URL in a private/incognito tab while signed out. Test a known claim, an unknown claim, two source links, `/library` and `/presentation` by direct navigation and refresh, the mobile layout and local test export. Confirm no login screen appears. Do not present a preview URL as a confirmed public deployment. Netlify is also supported: build `npm run build`, publish `dist`, with the included `_redirects` fallback.
 
 See ARCHITECTURE.md, MYTH_DATABASE.md, SOURCE_AUDIT.md, TESTING_GUIDE.md, PRESENTATION_NOTES.md and VIDEO_SCRIPT.md for handover.
+
+## Open source and contributions
+
+Licensed under the [MIT License](LICENSE). Contributions are welcome through issues and pull requests. For evidence or matching changes, follow MYTH_DATABASE.md, include relevant official sources and regression tests, and run the quality checks before submitting. Do not submit personal health information or fabricated testing results. Linked third-party source material remains subject to its own terms; the license covers this project’s original code and documentation.
