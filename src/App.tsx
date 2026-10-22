@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Plus, Sun, Moon, Info, HeartPulse, ArrowUpRight } from "lucide-react";
+import {
+  Plus,
+  Sun,
+  Moon,
+  Info,
+  HeartPulse,
+  ArrowUpRight,
+  Github,
+} from "lucide-react";
 import { SAFETY } from "./engine";
 import Home from "./pages/Home";
 import Library from "./pages/Library";
@@ -101,6 +109,30 @@ export default function App() {
           <span>AI Revolution & Digital Futures</span>
           <a href="/about">
             Methodology & privacy <ArrowUpRight size={13} />
+          </a>
+        </div>
+        <div className="footer-credits">
+          <div className="team-credit">
+            <span className="credit-label">Made by</span>
+            <ul aria-label="Project team">
+              <li>
+                <strong>Nihit Sunhare</strong>
+              </li>
+              <li>Rudransh Sahu</li>
+              <li>Priyushi Agrawal</li>
+              <li>Ahika Porwal</li>
+            </ul>
+          </div>
+          <a
+            className="github-link"
+            href="https://github.com/nihitdev/health-myth-buster"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github size={19} aria-hidden="true" />
+            View project on GitHub
+            <ArrowUpRight size={16} aria-hidden="true" />
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
       </footer>
