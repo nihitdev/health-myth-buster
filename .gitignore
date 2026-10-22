@@ -6,3 +6,8 @@ dist/
 playwright-report/
 test-results/
 *.tsbuildinfo
+
+# Local presentation outputs and media-tool environments
+/deliverables/
+.venv-media/
+__pycache__/

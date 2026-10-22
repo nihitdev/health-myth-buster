@@ -24,7 +24,7 @@ The browser suite runs against the production bundle using `npm run build && npm
 - Real participation: at least five other people, at least 20 original claims, honest expected answers and before/after analysis.
 - Independent adult/clinical content review, rechecking all official source links and reviewing 31 pending candidates.
 - Physical Android/iOS, Safari, screen readers, browser storage/download restrictions and zoom checks.
-- Import the repository into Vercel, confirm a successful public deployment, then test signed out on another device. No public URL has been claimed.
+- Public URL supplied by the user: https://health-myth-buster-amber.vercel.app/ . Automated isolated, signed-out Chromium checks returned HTTP 200, a FALSE result, an UNVERIFIED result and working direct /library and /presentation routes. Still test on another physical phone.
 - Fill actual team contributions/results/URL in presentation documents; compare proposed PPT answers with the real official template.
 
 The example-card flow is verified on desktop and mobile: clicking a prompt runs the real engine, more examples can be revealed, and Testing Lab previews leave local evaluation storage empty. Switching to a personal claim clears practice mode and focuses the input.

@@ -23,7 +23,7 @@ A free, evidence-first health-literacy tool for students and families across Ind
 **HCL Jigsaw 7.0 · Round 2 · Grade 6**<br />
 AI Revolution & Digital Futures
 
-[Get started](#get-started) · [Try these claims](#try-these-claims) · [Evidence audit](SOURCE_AUDIT.md) · [Contribute](#contributing)
+[Open the website](https://health-myth-buster-amber.vercel.app/) · [Get started](#get-started) · [Try these claims](#try-these-claims) · [Evidence audit](SOURCE_AUDIT.md) · [Contribute](#contributing)
 
 </div>
 
@@ -203,7 +203,9 @@ health-myth-buster/
 
 ## Deploy for free
 
-**Deployment-ready; no public deployment URL is currently confirmed.**
+**Live website: [health-myth-buster-amber.vercel.app](https://health-myth-buster-amber.vercel.app/)**
+
+The user-supplied deployment passed automated signed-out browser checks for a reviewed claim, an unknown claim, and direct Library/Presentation routes. Check it on another physical phone before submission. The settings below also support deploying your own copy.
 
 | Setting                    | Vercel                          | Netlify                      |
 | :------------------------- | :------------------------------ | :--------------------------- |
@@ -223,7 +225,7 @@ Before sharing a public URL:
 4. Open and refresh `/library` and `/presentation` directly.
 5. Confirm mobile usability, test export and access without login.
 
-Add the real production URL only after these checks succeed.
+The public URL above has passed the automated checks; the physical-device check remains a team task.
 
 ## Project documentation
 
@@ -235,7 +237,7 @@ Add the real production URL only after these checks succeed.
 | [Testing guide](TESTING_GUIDE.md)             | Genuine participant evaluation and improvement cycles.                    |
 | [Verification report](VERIFICATION_REPORT.md) | Recorded engineering checks and remaining manual work.                    |
 | [Presentation notes](PRESENTATION_NOTES.md)   | Suggested PPT content and demonstration sequence.                         |
-| [Video script](VIDEO_SCRIPT.md)               | Four speaking parts with placeholders for real contributions and results. |
+| [Video script](VIDEO_SCRIPT.md)               | Four human speaking parts, recording cues and honest testing status. |
 
 ## Team
 
@@ -274,3 +276,7 @@ Always ask a doctor.
 [Back to top](#health-myth-buster)
 
 </div>
+
+## Presentation materials
+
+Team **team_1127_0032**, Birla Open Minds International School, Indore, India. The official template, synthetic trailer and human pitch are separate deliverables. See [PRESENTATION_NOTES.md](PRESENTATION_NOTES.md) for the actual nine-slide template requirements and [scripts/presentation/README.md](scripts/presentation/README.md) to reproduce the local pack. Original downloaded templates, voice recordings and generated submission files are kept out of the public repository.
