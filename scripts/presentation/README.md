@@ -45,3 +45,16 @@ Start the app first with `npm run dev`. Full-pitch outputs go to `deliverables/f
 The full capture uses real app actions aligned to the recorded sections. It checks the FALSE and UNVERIFIED results and the reviewed-library count rather than substituting mock results. The final assembler calibrates startup timing from the first presenter highlight, adds speaker chapters, exports H.264/AAC 1080p MP4, verifies its duration is between two and three minutes, checks decoding and audio peaks, and saves inspection frames. Automatic transcripts are timing aids; they are not perfect captions and are not burned into the video. No faces or synthetic avatars are created.
 
 The short AI trailer remains a separate optional extra. The existing PPT is still a draft until a genuine collected example, actual participant evaluation and each student's independent understanding response are supplied.
+
+## Apply confirmed submission updates
+
+`benchmark_claims.mjs` runs 20 curated engineering cases against the recorded earlier commit and the current engine. It exports actual CSV/JSON outcomes and explicitly labels them as automation, not participant research. It must not be presented as a five-person user test.
+
+```sh
+node scripts/presentation/benchmark_claims.mjs
+.venv-media/bin/python scripts/presentation/update_submission.py --correct ACTUAL_CORRECT --total ACTUAL_TOTAL --participants ACTUAL_PEOPLE
+```
+
+Supply actual aggregate counts confirmed by the team; the script rejects impossible correct/total values. Outputs stay in `deliverables/ppt-update`. The updated deck preserves all nine slides and the original title XML, uses the real broad-illness input observed in development, labels user results as team-reported, separates the reproducible engineering comparison from any human retest, and supplies reflection drafts based only on recorded speaking roles. Each member still reviews and puts the independent reflection in their own words. No individual tester records or unidentified failed claims are invented.
+
+`update_result_video.py` is specific to the supplied recordings and full-pitch export. It omits Ahika's now-outdated sentence that participant evaluation is unfinished, inserts a separately labeled aggregate-results graphic, and keeps all four original voices without synthesizing new speech. It expects the reviewed `reported-results-card.png` local presentation graphic. Timestamp normalization and a complete decode check are required before sharing the output.
