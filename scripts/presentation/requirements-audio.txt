@@ -1,0 +1,4 @@
+# Optional, offline recording review and full-pitch assembly helpers.
+numpy>=1.26,<3
+Pillow>=10,<14
+faster-whisper==1.2.1
